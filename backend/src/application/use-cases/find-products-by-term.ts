@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserDoesNotExists } from './errors/user-does-not-exists';
+import { ProductDoesNotExists } from './errors/product-not-found';
 
 interface FindProductsDataRequest {
   term: string
@@ -15,7 +15,7 @@ export class FindProductsByTerm {
 
     const products = await this.ml.findByTerm(term)
     if (!products) {
-      throw new UserDoesNotExists();
+      throw new ProductDoesNotExists();
     }
 
 
