@@ -1,12 +1,26 @@
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { api } from "../services/api"; // Importa o Axios configurado
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [products, setProducts] = useState([]); // Estado para armazenar os produtos
+  const AUTH_TOKEN = "Bearer APP_USR-2836918273915819-040223-f800d3cfa24444a2b85f6f8939140bb5-1064208989";
 
-  const handleSearch = () => {
-    console.log("Searching for:", query);
-    // Aqui você pode adicionar a lógica de busca, como uma chamada à API
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+    try {
+      const response = await api.get(`/sites/MLB/search?q=${query}`, {
+        headers: {
+          Authorization: `Bearer ${AUTH_TOKEN}`,
+        },
+      });
+
+      console.log(response)
+      setProducts(response.data.results);
+    } catch (error) {
+      console.error("Erro ao buscar produtos:", error);
+    }
   };
 
   return (
