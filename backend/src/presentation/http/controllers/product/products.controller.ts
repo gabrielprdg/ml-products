@@ -10,13 +10,12 @@ export class ProductsController {
     private readonly findProductsById: FindProductById,
   ) { }
 
-  @Get('from/:term')
-  async find(@Param('id') term: string) {
+  @Get('search/:term')
+  async find(@Param('term') term: string) {
     const { products } = await this.findProductsByTerm.execute({
       term
     });
-
-    return { products }
+    return products.map(ProductViewModel.toHTTP);
   }
 
   @Get('from/:id')

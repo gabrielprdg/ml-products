@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDoesNotExists } from './errors/product-not-found';
+import { MercadoLivreService } from 'src/infra/mercado-livre/mercado-livre.service';
 
 interface FindProductsDataRequest {
   term: string
@@ -7,7 +8,7 @@ interface FindProductsDataRequest {
 @Injectable()
 export class FindProductsByTerm {
   constructor(
-    private readonly ml,
+    private readonly ml: MercadoLivreService,
   ) { }
 
   async execute(productData: FindProductsDataRequest) {

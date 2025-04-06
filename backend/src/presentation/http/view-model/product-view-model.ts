@@ -7,7 +7,7 @@ export type Image = {
 export type Product = {
   id: string
   name: string
-  date_create: string
+  date_created: string
   description: string
   status: string
   pictures: Image[]
@@ -18,7 +18,7 @@ export class ProductViewModel {
     return {
       id: product.id,
       name: product.name,
-      date_create: product.date_create,
+      date_created: product.date_created,
       description: product.description,
       status: product.status,
       pictures: product.pictures

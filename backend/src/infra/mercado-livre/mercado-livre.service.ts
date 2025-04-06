@@ -14,27 +14,27 @@ export class MercadoLivreService {
     try {
       const response = await axios.get(`${this.baseUrl}/products/${productId}`, {
         headers: {
-          Authorization: `Bearer ${process.env.ACESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.ML_ACCESS_TOKEN}`,
         },
       });
-      return response.data;
+      return response.data.results;
     } catch (error) {
       throw new HttpException('Erro ao buscar produto por ID', HttpStatus.BAD_REQUEST);
     }
   }
 
-  async searchProducts(query: string, token: string) {
+  async findByTerm(query: string) {
     try {
       const response = await axios.get(`${this.baseUrl}/products/search`, {
         headers: {
-          Authorization: `Bearer ${process.env.ACESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.ML_ACCESS_TOKEN}`,
         },
         params: {
           site_id: this.siteId,
           q: query,
         },
       });
-      return response.data;
+      return response.data.results;
     } catch (error) {
       throw new HttpException('Erro ao buscar produtos por termo', HttpStatus.BAD_REQUEST);
     }
