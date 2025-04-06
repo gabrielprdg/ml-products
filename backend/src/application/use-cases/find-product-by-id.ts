@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDoesNotExists } from './errors/product-not-found';
-import { MercadoLivreService } from 'src/infra/mercado-livre/mercado-livre.service';
+import { MercadoLivreService } from '@infra/mercado-livre/mercado-livre.service';
 
 interface FindProductByIdDataRequest {
   productId: string

@@ -1,5 +1,7 @@
 // src/infra/mercado-livre/mercado-livre.service.ts
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { FailedToFetchProduct } from '@application/use-cases/errors/failed-to-fetch-product';
+import { FailedToSearchProducts } from '@application/use-cases/errors/failed-to-search-products';
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 @Injectable()
@@ -20,7 +22,7 @@ export class MercadoLivreService {
 
       return response.data;
     } catch (error) {
-      throw new HttpException('Erro ao buscar produto por ID', HttpStatus.BAD_REQUEST);
+      throw new FailedToFetchProduct()
     }
   }
 
@@ -37,7 +39,7 @@ export class MercadoLivreService {
       });
       return response.data.results;
     } catch (error) {
-      throw new HttpException('Erro ao buscar produtos por termo', HttpStatus.BAD_REQUEST);
+      throw new FailedToSearchProducts()
     }
   }
 }

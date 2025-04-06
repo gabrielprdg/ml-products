@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { FindProductById } from 'src/application/use-cases/find-product-by-id';
-import { FindProductsByTerm } from 'src/application/use-cases/find-products-by-term';
+import { FindProductById } from '@application/use-cases/find-product-by-id';
+import { FindProductsByTerm } from '@application/use-cases/find-products-by-term';
 import { ProductByIdViewModel, ProductsByTermViewModel } from '../../view-model/product-view-model';
 
 @Controller('product')

@@ -64,7 +64,7 @@ export default function ProductDetails() {
       </div>
 
       <div className="space-y-6 mb-12">
-        {product.pickers.map((picker: any) => (
+        {product?.pickers?.map((picker: any) => (
           <div key={picker.picker_name}>
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               {picker.picker_name}
