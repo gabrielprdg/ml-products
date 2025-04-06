@@ -1,8 +1,8 @@
 export class ProductDoesNotExists extends Error {
   statusCode: number
   constructor() {
-    super('User does not exists');
-    this.name = 'UserDoesNotExists';
+    super('Product does not exists');
+    this.name = 'ProductDoesNotExists';
     this.statusCode = 409
   }
 }

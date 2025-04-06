@@ -1,19 +1,7 @@
+import { Product } from "src/application/domain/model/product";
+import { ProductById } from "src/application/domain/use-cases/productById";
 
-export type Image = {
-  id: string,
-  url: string
-}
-
-export type Product = {
-  id: string
-  name: string
-  date_created: string
-  description: string
-  status: string
-  pictures: Image[]
-}
-
-export class ProductViewModel {
+export class ProductsByTermViewModel {
   static toHTTP(product: Product) {
     return {
       id: product.id,
@@ -25,3 +13,21 @@ export class ProductViewModel {
     };
   }
 }
+
+
+export class ProductByIdViewModel {
+  static toHTTP(product: ProductById) {
+    return {
+      id: product.id,
+      name: product.name,
+      date_created: product.date_created,
+      description: product.short_description,
+      status: product.status,
+      pictures: product.pictures,
+      permalink: product.permalink,
+      pickers: product.pickers,
+      last_updated: product.last_updated
+    };
+  }
+}
+

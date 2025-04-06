@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { FindProductById } from 'src/application/use-cases/find-product-by-id';
 import { FindProductsByTerm } from 'src/application/use-cases/find-products-by-term';
-import { ProductViewModel } from '../../view-model/product-view-model';
+import { ProductByIdViewModel, ProductsByTermViewModel } from '../../view-model/product-view-model';
 
 @Controller('product')
 export class ProductsController {
@@ -15,14 +15,14 @@ export class ProductsController {
     const { products } = await this.findProductsByTerm.execute({
       term
     });
-    return products.map(ProductViewModel.toHTTP);
+    return products.map(ProductsByTermViewModel.toHTTP);
   }
 
   @Get('from/:id')
   async findById(@Param('id') productId: string) {
     const { product } = await this.findProductsById.execute({ productId })
 
-    return ProductViewModel.toHTTP(product);
+    return ProductByIdViewModel.toHTTP(product);
   }
 
 }

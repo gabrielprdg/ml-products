@@ -17,7 +17,8 @@ export class MercadoLivreService {
           Authorization: `Bearer ${process.env.ML_ACCESS_TOKEN}`,
         },
       });
-      return response.data.results;
+
+      return response.data;
     } catch (error) {
       throw new HttpException('Erro ao buscar produto por ID', HttpStatus.BAD_REQUEST);
     }
