@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: weesu_api
+    restart: unless-stopped
+    environment:
+      BASE_URL: ${BASE_URL}
+      SITE_ID: ${SITE_ID}
+      ML_ACCESS_TOKEN: ${ML_ACCESS_TOKEN}
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - .:/app
+      - /app/node_modules 
+    command: npm run start

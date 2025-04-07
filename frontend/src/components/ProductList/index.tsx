@@ -1,18 +1,34 @@
 import { useNavigate } from "react-router-dom";
 
 export type Image = {
-  id: string,
+  id: string
   url: string
 }
 
+export type PickerProduct = {
+  picker_label: string
+}
+
+export type Picker = {
+  picker_name: string
+  products: PickerProduct[]
+}
+
+export type Description = {
+  content: string
+}
 
 export type Product = {
   id: string
   name: string
   date_created: string
-  description: string
+  description?: string
   status: string
   pictures: Image[]
+  pickers?: Picker[]
+  short_description?: Description
+  permalink?: string
+  last_updated?: string
 }
 
 type ProductListProps = {
@@ -28,14 +44,14 @@ export default function ProductList({ products }: ProductListProps) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 w-full">
-      {products.map((product) => (
+      {products.map((product: Product) => (
         <div
           key={product.id}
           onClick={() => navigate(`/product/${product.id}`)}
-          className="cursor-pointer border rounded-2xl p-4 shadow hover:shadow-lg transition bg-white"
+          className="cursor-pointer rounded-2xl p-4 shadow hover:shadow-lg transition bg-white"
         >
           <img
-            src={product.pictures[0]?.url || "/placeholder.png"}
+            src={product.pictures[0]?.url || "/noimage.png"}
             alt={product.name}
             className="w-full h-48 object-contain mb-2"
           />

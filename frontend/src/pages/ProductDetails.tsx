@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { ArrowLeft } from "lucide-react";
+import { Image, Picker } from "../components/ProductList";
+import { toast } from "react-toastify";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -14,10 +16,9 @@ export default function ProductDetails() {
     async function fetchProduct() {
       try {
         const response = await api.get(`/product/from/${id}`);
-        console.log(response)
         setProduct(response.data);
       } catch (err) {
-        console.error("Erro ao buscar detalhes do produto:", err);
+        toast.error("Error while searching products");
       } finally {
         setLoading(false);
       }
@@ -28,9 +29,6 @@ export default function ProductDetails() {
 
   if (loading) return <p className="text-center mt-6">Carregando...</p>;
   if (!product) return <p className="text-center text-red-500 mt-6">Produto não encontrado.</p>;
-
-  const getAttribute = (attrId: string) =>
-    product.attributes?.find((attr: any) => attr.id === attrId)?.value_name || "Não informado";
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -45,14 +43,23 @@ export default function ProductDetails() {
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 text-center">{product.name}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-        {product.pictures?.map((pic: any) => (
+        {product.pictures && product.pictures.length > 0 ? (
+          product.pictures.map((pic: Image) => (
+            <img
+              key={pic.id}
+              src={pic.url || "/noimage.png"}
+              alt={product.name}
+              className="w-full h-48 object-contain bg-white rounded-xl shadow-sm"
+            />
+          ))
+        ) : (
           <img
-            key={pic.id}
-            src={pic.url}
+            key={product.id}
+            src="/noimage.png"
             alt={product.name}
             className="w-full h-48 object-contain bg-white rounded-xl shadow-sm"
           />
-        ))}
+        )}
       </div>
 
 
@@ -64,7 +71,7 @@ export default function ProductDetails() {
       </div>
 
       <div className="space-y-6 mb-12">
-        {product?.pickers?.map((picker: any) => (
+        {product?.pickers?.map((picker: Picker) => (
           <div key={picker.picker_name}>
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               {picker.picker_name}
